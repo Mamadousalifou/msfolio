@@ -10,25 +10,28 @@ import Contact from "./components/contact/contact";
 import Footer from "./components/footer/footer";
 import { BrowserRouter } from "react-router-dom";
 
+
 const App = () => {
   return (
     <>
+      <BrowserRouter>
+        <Header  />
 
-    <BrowserRouter>
-    
-    <Header index />
-    
-      <Nav />
+        <Nav />
+
+        <About />
+        <Experience />
+        <Service />
+        <Portfolio />
+
+       
       
-      <About />
-      <Experience />
-      <Service />
-      <Portfolio />
-      <Temoignage />
-      <Contact  />
-      <Footer />
-    </BrowserRouter>
-    
+          <Temoignage/>
+        
+
+        <Contact />
+        <Footer />
+      </BrowserRouter>
     </>
   );
 };
