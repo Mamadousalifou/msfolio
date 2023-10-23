@@ -1,53 +1,50 @@
-import React, { useState }from "react";
+import React, { useRef } from "react";
 import "./contact.css";
 import { MdOutlineEmail } from "react-icons/md";
-import {AiOutlineLinkedin} from "react-icons/ai"
-import {BsWhatsapp} from "react-icons/bs"
-import emailjs from 'emailjs-com';
+import { AiOutlineLinkedin } from "react-icons/ai";
+import { BsWhatsapp } from "react-icons/bs";
+import emailjs from "emailjs-com";
 
+const Contact = () => {
 
-const contact = () => {
+  const MonFOrmulaire = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
 
-  const MyComponent = () => {
-    const [formData, setFormData] = useState({
-      name: '',
-      email: '',
-      phone: '',
-      message: ''
-    });
-  
-    const sendEmail = () => {
-      emailjs.send('service_rjtfn6s', 'template_hzniybi', formData)
-        .then((response) => {
-          console.log('E-mail envoyé avec succès!', response);
-        })
-        .catch((error) => {
-          console.error('Erreur lors de l\'envoi de l\'e-mail:', error);
-        });
-    };
+    emailjs
+      .sendForm(
+        "service_rjtfn6s",
+        "template_hzniybi",
+        MonFOrmulaire.current,
+        "PfmnfR7JZVKvNSBpP"
+      )
+
+      .then(
+        (result) => {
+          console.log(result.text);
+     
+        },
+        (error) => {
+          console.log(error.text);
+ 
+        }
+      );
+
+    if (MonFOrmulaire.current) {
+      MonFOrmulaire.current.reset(); 
+    }
   };
 
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    sendEmail(); // Appel de la fonction sendEmail() lors de la soumission du formulaire.
-    // Vous pouvez également réinitialiser le formulaire ici si nécessaire.
-  };
-  
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
+ 
 
   return (
+
+
     <section id="contact">
       <h5>Get In Touch</h5>
       <h2>Contact Me</h2>
       <div className="container contact__container">
-        <div className="contact__options">
+      <div className="contact__options">
           <article className="contact__option">
             <MdOutlineEmail  className="contact__option-icon" />
             <h4>Email</h4>
@@ -68,18 +65,70 @@ const contact = () => {
           </article>
         </div>
         {/*END OF CONTACT OPTIONS*/}
+        <form
+          ref={MonFOrmulaire}
+          onSubmit={sendEmail}
+          className="text-start p-2 container col-10"
+        >
+          {/* <!-- name --> */}
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="name"
+              name="name"
+              className="form-control"
+              id="name"
+              placeholder="Your name"
+              required
+            />
+          </div><div className="form-group">
+            <label htmlFor="name">Telephone</label>
+            <input
+              type="number"
+              name="contact"
+              className="form-control"
+              id="contact"
+              placeholder="Your contact"
+              required
+            />
+          </div>
 
-        <form onSubmit={handleSubmit}>
+          {/* <!-- email --> */}
+          <div className="form-group">
+            <label htmlFor="email">Email address</label>
+            <input
+              type="email"
+              name="email"
+              className="form-control"
+              id="email"
+              placeholder="Your email"
+              required
+            />
+          </div>
 
-          <input type="text" name="name" placeholder="Your Full Name" required/>
-          <input type="email" name="email" placeholder="Your Email" />
-          <input type="number" name="phone" placeholder="Your phone Number" required/>
-          <textarea  value={formData.message}  onChange={handleInputChange} type="message" rows="7"  placeholder="Your Message" required/>
-          <button type="submit" className="btn btn-primary">Send Message</button>
+         
+
+          <div className="form-group">
+            <label htmlFor="message">Message</label>
+            <textarea
+              className="form-control"
+              name="message"
+              id="message"
+              rows="4"
+              required
+            ></textarea>
+          </div>
+          <hr />
+          
+            <button type="submit" className="btn btn-primary">
+          Envoyer
+            </button>
+         
         </form>
+       
       </div>
     </section>
   );
 };
 
-export default contact;
+export default Contact;
