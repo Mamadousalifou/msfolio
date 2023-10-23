@@ -7,7 +7,7 @@ import Service from "./components/service/service";
 import Portfolio from "./components/portfolio/portfolio";
 import Temoignage from "./components/temoignage/temoignage";
 import Contact from "./components/contact/contact";
-import Footer from "./components/footer/footer";
+// import Footer from "./components/footer/footer";
 import { BrowserRouter } from "react-router-dom";
 
 
@@ -30,7 +30,7 @@ const App = () => {
         
 
         <Contact />
-        <Footer />
+        
       </BrowserRouter>
     </>
   );
